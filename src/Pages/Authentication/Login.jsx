@@ -4,10 +4,11 @@ import { useState } from "react";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { useLoginUserMutation } from "../../redux/features/baseApi";
 import { toast, Toaster } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate()
   const [loginUser, {isLoading}] = useLoginUserMutation();
 
   const {
@@ -19,7 +20,7 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     
     try {
-      
+
       const userInfo = {
         email: data?.email,
         password: data?.password,
@@ -33,19 +34,20 @@ export default function LoginForm() {
 
     toast.success("Successfully logged in")
 
+    navigate("/dashboard")
+
     } catch (error) {
-      toast.error(error?.data?.detail)
+      toast.error(error?.data?.detail || "Unable to login! Try again")
     }
 
     
-
 
   };
 
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Welcome Section */}
-      <Toaster/>
+      <Toaster position="top-right"/>
       <div className="flex-1 flex items-center justify-center bg-white">
         <div className="w-full">
           <div className="mb-10 px-8 text-center lg:text-left lg:px-32">
@@ -170,7 +172,7 @@ export default function LoginForm() {
          <button
           type="submit"
           disabled={isLoading}
-          className={`w-full py-3 px-4 rounded-full cursor-pointer font-semibold text-white transition duration-200 ease-in-out 
+          className={`w-full py-3 px-4 shadow-sm shadow-gray-800 rounded-full cursor-pointer font-semibold text-white transition duration-200 ease-in-out 
             ${
               isLoading
                 ? "bg-blue-400 cursor-not-allowed"
