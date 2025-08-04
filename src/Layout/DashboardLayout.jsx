@@ -7,6 +7,8 @@ import {
   HiOutlineCog,
   HiOutlineBell,
 } from "react-icons/hi";
+import { FaChartLine } from "react-icons/fa";
+import { FiMessageSquare } from "react-icons/fi";
 
 const navItems = [
   {
@@ -26,14 +28,14 @@ const navItems = [
   {
     path: "/dashboard/report",
     label: "Report",
-    icon: <HiOutlineChartSquareBar className="text-xl" />,
+    icon: <FaChartLine className="text-xl" />,
     rounded: "rounded-full",
     active: "bg-blue-100 text-blue-700",
   },
   {
     path: "/dashboard/request",
     label: "Request",
-    icon: <HiOutlineClipboardCheck className="text-xl" />,
+    icon: <FiMessageSquare  className="text-xl" />,
     rounded: "rounded-full",
     active: "bg-blue-100 text-blue-700",
   },
