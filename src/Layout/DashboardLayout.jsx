@@ -2,8 +2,6 @@ import { Outlet, NavLink } from "react-router-dom";
 import {
   HiOutlineViewGrid,
   HiOutlineFolderOpen,
-  HiOutlineChartSquareBar,
-  HiOutlineClipboardCheck,
   HiOutlineCog,
   HiOutlineBell,
 } from "react-icons/hi";
@@ -51,13 +49,12 @@ const navItems = [
 export default function DashboardLayout() {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Top Navbar */}
-      {/* Top Navbar */}
+   
 <div className="bg-white shadow-lg shadow-gray-900">
   <div className="mx-auto container px-4 py-4 flex items-center justify-between">
     {/* Left: Logo */}
     <div className="flex items-center gap-3 w-1/5">
-      <img src="/logo.svg" className="h-8" alt="Logo" />
+      <img src="https://icon-library.com/images/construction-icon-png/construction-icon-png-14.jpg" className="h-16" alt="Logo" />
     </div>
 
     {/* Center: Navigation */}
@@ -95,7 +92,7 @@ export default function DashboardLayout() {
 
 
       {/* Page Content */}
-      <div className="bg-gray-50 flex-1 py-6">
+      <div className="bg-[#F7FBFD] flex-1 py-6">
         <div className="container px-4 mx-auto">
           <Outlet />
         </div>

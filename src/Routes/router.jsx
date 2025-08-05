@@ -4,6 +4,7 @@ import Main from "../Layout/Main";
 import Login from "../Pages/Authentication/Login";
 import DashboardLayout from "../Layout/DashboardLayout";
 import DashboardHome from "../Pages/Dashboard/DashboardHome";
+import ProductDetails from "../Pages/Dashboard/ProductDetails";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
         index: true,
         element: <DashboardHome />,
       },
+      {
+        path: "product_details/:id",
+        element: <ProductDetails/>
+      }
     ],
   },
 ]);
