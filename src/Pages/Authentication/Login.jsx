@@ -1,15 +1,14 @@
-
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { useLoginUserMutation } from "../../redux/features/baseApi";
 import { toast, Toaster } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate()
-  const [loginUser, {isLoading}] = useLoginUserMutation();
+  const navigate = useNavigate();
+  const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const {
     register,
@@ -18,36 +17,30 @@ export default function LoginForm() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    
     try {
-
       const userInfo = {
         email: data?.email,
         password: data?.password,
       };
 
-    const response = await loginUser(userInfo).unwrap();
-    console.log(response, "loginresponse");
+      const response = await loginUser(userInfo).unwrap();
+      console.log(response, "loginresponse");
 
-    localStorage.setItem("access_token", response?.access_token);
-    localStorage.setItem("refresh_token", response?.refresh_token);
+      localStorage.setItem("access_token", response?.access_token);
+      localStorage.setItem("refresh_token", response?.refresh_token);
 
-    toast.success("Successfully logged in")
+      toast.success("Successfully logged in");
 
-    navigate("/dashboard")
-
+      navigate("/dashboard");
     } catch (error) {
-      toast.error(error?.data?.detail || "Unable to login! Try again")
+      toast.error(error?.data?.detail || "Unable to login! Try again");
     }
-
-    
-
   };
 
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Welcome Section */}
-      <Toaster position="top-right"/>
+      <Toaster position="top-right" />
       <div className="flex-1 flex items-center justify-center bg-white">
         <div className="w-full">
           <div className="mb-10 px-8 text-center lg:text-left lg:px-32">
@@ -160,35 +153,34 @@ export default function LoginForm() {
                 />
                 <span className="ml-2">Remember me</span>
               </label>
-              <a
-                href="#"
+              <Link
+                to="/select_method"
                 className="text-blue-200 hover:text-white transition-colors underline"
               >
                 Forgot Password?
-              </a>
+              </Link>
             </div>
 
             {/* Login Button */}
-         <button
-          type="submit"
-          disabled={isLoading}
-          className={`w-full py-3 px-4 shadow-sm shadow-gray-800 rounded-full cursor-pointer font-semibold text-white transition duration-200 ease-in-out 
+            <button
+              type="submit"
+              disabled={isLoading}
+              className={`w-full py-3 px-4 shadow-sm shadow-gray-800 rounded-full cursor-pointer font-semibold text-white transition duration-200 ease-in-out 
             ${
               isLoading
                 ? "bg-blue-400 cursor-not-allowed"
                 : "bg-gradient-to-r from-[#1A4773] to-[#0074E5] hover:scale-[1.02] active:scale-95"
             }`}
-        >
-          {isLoading ? (
-            <div className="flex items-center justify-center">
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-              Logging in...
-            </div>
-          ) : (
-            "Log In"
-          )}
-    </button>
-
+            >
+              {isLoading ? (
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                  Logging in...
+                </div>
+              ) : (
+                "Log In"
+              )}
+            </button>
           </form>
         </div>
       </div>
