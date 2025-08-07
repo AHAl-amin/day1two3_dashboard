@@ -168,7 +168,7 @@ export default function LoginForm() {
               className={`w-full py-3 px-4 shadow-sm shadow-gray-800 rounded-full cursor-pointer font-semibold text-white transition duration-200 ease-in-out 
             ${
               isLoading
-                ? "bg-blue-400 cursor-not-allowed"
+                ? "bg-gradient-to-r from-[#1A4773] to-[#0074E5] cursor-not-allowed"
                 : "bg-gradient-to-r from-[#1A4773] to-[#0074E5] hover:scale-[1.02] active:scale-95"
             }`}
             >

@@ -1,26 +1,41 @@
 import { useForm } from "react-hook-form";
-import { Mail, Mailbox } from "lucide-react";
+import { Mail } from "lucide-react";
 import { MdLocalPhone } from "react-icons/md";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useVerifyEmailMutation } from "../../redux/features/baseApi";
+import { toast, Toaster } from "sonner";
 
 export default function ForgotPasswordForm() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const method = queryParams.get("method");
+  // const method = queryParams.get("method");
+  const { method } = useParams();
+
+  const [verifyEmail, { isLoading }] = useVerifyEmailMutation();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: "",
-      phoneNumber: "",
-    },
-  });
+  } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Form submitted:", data);
+
+    if (data?.email) {
+      localStorage.setItem("email", data.email);
+    } else if (data?.phone_number) {
+      localStorage.setItem("phone_number", data.phone_number);
+    }
+
+    try {
+      const response = await verifyEmail(data).unwrap();
+      console.log(response);
+      navigate(`/otp_validation/${method}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -81,7 +96,7 @@ export default function ForgotPasswordForm() {
                 </div>
                 <input
                   type="tel"
-                  {...register("phoneNumber", {
+                  {...register("phone_number", {
                     required: "Phone number is required",
                     pattern: {
                       value: /^[0-9]{10,15}$/,
@@ -89,25 +104,39 @@ export default function ForgotPasswordForm() {
                     },
                   })}
                   className={`w-full pl-14 py-3 shadow rounded-full bg-white text-gray-900 border-2 text-base transition-all duration-200 placeholder-gray-500 ${
-                    errors.phoneNumber ? "border-red-200" : "border-gray-200"
+                    errors.phone_number ? "border-red-200" : "border-gray-200"
                   }`}
                   placeholder="Enter mobile number"
                 />
               </div>
-              {errors.phoneNumber && (
+              {errors.phone_number && (
                 <p className="mt-1 text-sm text-red-500 text-start">
-                  {errors.phoneNumber.message}
+                  {errors.phone_number.message}
                 </p>
               )}
             </div>
           )}
 
           {/* Submit Button */}
+
           <button
             type="submit"
-            className="w-full py-3 px-4 shadow-sm bg-gradient-to-r from-[#1A4773] to-[#0074E5] shadow-gray-800 rounded-full cursor-pointer font-semibold text-white transition duration-200 ease-in-out"
+            disabled={isLoading}
+            className={`w-full py-3 px-4 shadow-sm shadow-gray-800 rounded-full cursor-pointer font-semibold text-white transition duration-200 ease-in-out 
+            ${
+              isLoading
+                ? "bg-gradient-to-r from-[#1A4773] to-[#0074E5] cursor-not-allowed"
+                : "bg-gradient-to-r from-[#1A4773] to-[#0074E5] hover:scale-[1.02] active:scale-95"
+            }`}
           >
-            Send OTP
+            {isLoading ? (
+              <div className="flex items-center justify-center">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                Sending OTP
+              </div>
+            ) : (
+              "Sending OTP"
+            )}
           </button>
         </form>
       </div>

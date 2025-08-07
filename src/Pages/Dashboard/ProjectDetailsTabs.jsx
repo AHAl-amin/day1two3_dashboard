@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import clsx from "clsx";
+import { FiCalendar, FiDollarSign } from "react-icons/fi";
 
 // Mock API function to simulate dynamic data fetching
 const fetchProjectData = async () => {
@@ -107,19 +108,7 @@ export default function ProjectDetailsTabs() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
             <div className="bg-white shadow-sm rounded-lg p-6">
               <div className="flex items-center gap-3 mb-6">
-                <svg
-                  className="w-5 h-5 text-gray-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
+                <FiCalendar size={24} className="text-[#253240]" />
                 <h3 className="text-lg font-semibold text-gray-800">
                   Project Timeline
                 </h3>
@@ -147,19 +136,8 @@ export default function ProjectDetailsTabs() {
             </div>
             <div className="bg-white shadow-sm rounded-lg p-6">
               <div className="flex items-center gap-3 mb-6">
-                <svg
-                  className="w-5 h-5 text-gray-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-                  />
-                </svg>
+                <FiDollarSign size={24} />
+
                 <h3 className="text-lg font-semibold text-gray-800">
                   Financial Summary
                 </h3>
@@ -317,18 +295,18 @@ export default function ProjectDetailsTabs() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6 bg-gray-50 min-h-screen">
+    <div className=" mx-auto py-8 bg-gray-50">
       {/* Tab Navigation */}
-      <div className="flex items-center gap-10 justify-center bg-white shadow-sm rounded-xl p-2 mb-8">
+      <div className="flex items-center gap-10 justify-center bg-[#3B82F61A] px-3 shadow-md p-2 mb-8 rounded-full">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={clsx(
-              "flex-1 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300",
+              "flex-1 px-4 py-3 text-[16px] font-medium rounded-full transition-all duration-300",
               activeTab === tab.id
-                ? "bg-blue-600 text-white shadow-md"
-                : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                ? "bg-gradient-to-b from-[#1E90FF] to-[#305C87] text-white shadow-md"
+                : "text-gray-600 hover:text-gray-900 cursor-pointer"
             )}
           >
             {tab.label}

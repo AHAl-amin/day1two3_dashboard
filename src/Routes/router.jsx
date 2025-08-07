@@ -7,6 +7,7 @@ import DashboardHome from "../Pages/Dashboard/DashboardHome";
 import ProductDetails from "../Pages/Dashboard/ProductDetails";
 import SelectMethod from "../Pages/Authentication/SelectMethod";
 import Verification from "../Pages/Authentication/Verification";
+import OTPVerification from "../Pages/Authentication/OTPVerification";
 
 export const router = createBrowserRouter([
   {
@@ -22,8 +23,12 @@ export const router = createBrowserRouter([
         element: <SelectMethod />,
       },
       {
-        path: "/verification",
+        path: "/verification/:method",
         element: <Verification />,
+      },
+      {
+        path: "/otp_validation/:method",
+        element: <OTPVerification />,
       },
     ],
   },

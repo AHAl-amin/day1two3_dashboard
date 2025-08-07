@@ -10,8 +10,8 @@ export default function SelectMethod() {
   const handleSelect = (method) => {
     setSelectedMethod(method);
     navigate({
-      pathname: "/verification",
-      search: `?method=${method}`,
+      pathname: `/verification/${method}`,
+      // search: `?method=${method}`,
     });
   };
 

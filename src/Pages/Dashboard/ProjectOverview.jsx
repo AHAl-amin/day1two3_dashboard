@@ -1,19 +1,6 @@
-"use client";
-
-import { useState } from "react";
-import {
-  Search,
-  Filter,
-  Plus,
-  Users,
-  AlertTriangle,
-  Clock,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { Users, AlertTriangle, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { RiSearchLine } from "react-icons/ri";
-import { FiFilter } from "react-icons/fi";
 
 const ProjectOverview = () => {
   const projects = [
@@ -114,44 +101,28 @@ const ProjectOverview = () => {
     <div className="min-h-screen ">
       <div className=" mx-auto">
         {/* Header */}
-        <div>
+        <div className="flex items-center justify-between">
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h1 className="text-[40px] font-bold text-[#253240] mb-2">
+              <h1 className="text-[40px] font-bold text-[#253240]">
                 Project Management
               </h1>
-              <p className="text-[#6E6E6E]">
+              <p className="text-[#6E6E6E] text-[20px]">
                 Monitor all construction loan projects in real-time
               </p>
             </div>
-            <button className="flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-              <Plus className="w-4 h-4 mr-2" />
-              New Project
-            </button>
           </div>
 
-          {/* Search and Filter */}
-
           <div className="py-5 flex items-center gap-5">
-            <label className="flex items-center gap-2 px-4 py-2 rounded-full shadow-md bg-white w-[300px]">
+            <label className="flex items-center gap-2 px-4 py-3 rounded-full shadow-md bg-white w-[300px] h-[56px]">
               <RiSearchLine size={20} className="text-[#BABABA]" />
               <input
                 type="search"
                 required
                 placeholder="Search here..."
-                className="text-base text-gray-700 outline-none ring-0 py-1 border-none bg-transparent w-full"
+                className="text-base text-gray-700 outline-none ring-0 border-none bg-transparent w-full"
               />
             </label>
-
-            <select
-              defaultValue="Pick a color"
-              className="select border-none focus:outline-none focus:ring-0 focus:border-white py-1 rounded-full"
-            >
-              <option disabled>Pick a color</option>
-              <option>Crimson</option>
-              <option>Amber</option>
-              <option>Velvet</option>
-            </select>
           </div>
         </div>
 
@@ -192,8 +163,8 @@ const ProjectOverview = () => {
                           index === 0
                             ? getProgressBarColor(project.status)
                             : index === 1
-                            ? "bg-[#F59E0B]" // Budget Used
-                            : "bg-[#10B981]"; // Timeline
+                            ? "bg-[#F59E0B]"
+                            : "bg-[#10B981]";
 
                         return (
                           <div key={label}>

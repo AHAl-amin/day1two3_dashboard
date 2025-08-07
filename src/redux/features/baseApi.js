@@ -27,18 +27,33 @@ export const baseApi = createApi({
     //reset pass
     //email verification
     verifyEmail: builder.mutation({
-      query: (email) => ({
+      query: (data) => ({
         url: "accounts/pass-reset-request/",
         method: "POST",
-        body: email
+        body: data
+      })
+    }),
+
+
+
+    varifyOtp: builder.mutation({
+      query: (otpData) => ({
+        url: "accounts/reset-request-activate/",
+        method: "POST",
+        body: otpData
       })
     })
+
+
   }),
 });
 
 export const {
 
   useLoginUserMutation,
-  useVerifyEmailMutation
+  useVerifyEmailMutation,
+  useVarifyOtpMutation,
+
+
 
 } = baseApi;
