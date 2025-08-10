@@ -8,7 +8,7 @@ const ProjectOverview = () => {
       id: "1",
       name: "Sunset Villa",
       address: "123 Oak Street, Austin",
-      status: "In-prog",
+      status: "On-going",
       progress: 35,
       budgetUsed: 35,
       timeline: 35,
@@ -21,7 +21,7 @@ const ProjectOverview = () => {
       id: "2",
       name: "Oakwood Residences",
       address: "123 Oak Street, Austin",
-      status: "In-prog",
+      status: "On-going",
       progress: 55,
       budgetUsed: 55,
       timeline: 55,
@@ -73,7 +73,7 @@ const ProjectOverview = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "In-prog":
+      case "On-going":
         return "bg-blue-100 text-blue-800";
       case "Delayed":
         return "bg-orange-100 text-orange-800";
@@ -86,7 +86,7 @@ const ProjectOverview = () => {
 
   const getProgressBarColor = (status) => {
     switch (status) {
-      case "In-prog":
+      case "On-going":
         return "bg-blue-500";
       case "Delayed":
         return "bg-orange-500";

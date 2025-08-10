@@ -8,6 +8,12 @@ import ProductDetails from "../Pages/Dashboard/ProductDetails";
 import SelectMethod from "../Pages/Authentication/SelectMethod";
 import Verification from "../Pages/Authentication/Verification";
 import OTPVerification from "../Pages/Authentication/OTPVerification";
+import Projects from "../Pages/Dashboard/Projects/Projects";
+import Reports from "../Pages/Dashboard/Reports";
+import Request from "../Pages/Dashboard/Request";
+import Settings from "../Pages/Dashboard/Settings/Settings";
+import TearmAndConditions from "../Pages/Dashboard/Settings/TearmAndConditions";
+import ChangePassword from "../Pages/Dashboard/Settings/ChangePassword";
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +38,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  
+
   {
     path: "/dashboard",
     element: <DashboardLayout />,
@@ -45,6 +51,33 @@ export const router = createBrowserRouter([
         path: "product_details/:id",
         element: <ProductDetails />,
       },
+      {
+        path: "projects",
+        element: <Projects />,
+      },
+      {
+        path: "reports",
+        element: <Reports />,
+      },
+      {
+        path: "request",
+        element: <Request />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+    
+      {
+        path: "terms",
+        element: <TearmAndConditions />,
+      },
+    
+      {
+        path: "change_password",
+        element: <ChangePassword />,
+      },
+    
     ],
   },
 ]);

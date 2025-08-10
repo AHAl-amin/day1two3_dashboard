@@ -16,7 +16,7 @@ const ProductDetails = () => {
       <div className="py-10 flex justify-end">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-1 justify-center w-[100px] hover:shadow-lg hover:bg-gray-200 cursor-pointer shadow-md shadow-gray-300 border-2 border-gray-100 py-1 rounded-full"
+          className="flex items-center gap-1 justify-center w-[100px] hover:shadow-lg text-gray-600 hover:bg-gray-200 cursor-pointer shadow-md shadow-gray-300 border-2 border-gray-100 py-1 rounded-full"
         >
           <IoChevronBackSharp />
           Back
@@ -44,7 +44,7 @@ const ProductDetails = () => {
           <p
             className={`p-1 flex items-center justify-center rounded-full py-1 font-medium cursor-pointer text-white
             ${
-              project?.status === "In-prog"
+              project?.status === "On-going"
                 ? "bg-yellow-400"
                 : project?.status === "Delayed"
                 ? "bg-red-500"
