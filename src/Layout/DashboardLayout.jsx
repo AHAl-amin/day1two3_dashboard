@@ -55,6 +55,16 @@ export default function DashboardLayout() {
   const [selectedOption, setSelectedOption] = useState("Settings");
   const dropdownRef = useRef(null);
   const location = useLocation();
+  // const navigate = useNavigate();
+
+  // const token =localStorage.getItem("access_token")
+
+  // if(!token){
+  //   navigate("/")
+  // }
+  // else{
+  //   navigate("/dashboard")
+  // }
 
   // Close dropdown when clicking outside
   useEffect(() => {

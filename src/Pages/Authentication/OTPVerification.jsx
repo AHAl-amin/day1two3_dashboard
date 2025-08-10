@@ -164,10 +164,10 @@ export default function OTPVerification() {
             {isLoading ? (
               <div className="flex items-center justify-center">
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-                Logging in...
+                Verifying...
               </div>
             ) : (
-              "Log In"
+              "Verify otp"
             )}
           </button>
         </form>
@@ -177,7 +177,7 @@ export default function OTPVerification() {
             Didn&apos;t receive OTP?{" "}
             <button
               type="button"
-              className="text-[#1E90FF] hover:text-[#0858A6] font-semibold"
+              className="text-[#1E90FF] cursor-pointer hover:text-[#0858A6] font-semibold"
             >
               Resend
             </button>

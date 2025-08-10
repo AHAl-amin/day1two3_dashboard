@@ -119,7 +119,7 @@ export default function LoginForm() {
                     //   message: "Password must be at least 6 characters",
                     // },
                   })}
-                  className={`w-full pl-12 pr-12 py-3 bg-white border-2 rounded-full focus:ring-2 focus:ring-blue-300 focus:border-blue-300 transition-all duration-200 placeholder-gray-500 ${
+                  className={`w-full pl-12 pr-12 py-3 bg-white border-2 rounded-full text-gray-600 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 transition-all duration-200 placeholder-gray-500 ${
                     errors.password ? "border-red-200" : "border-gray-200"
                   }`}
                   placeholder="Enter password"
