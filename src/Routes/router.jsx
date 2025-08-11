@@ -14,6 +14,7 @@ import Request from "../Pages/Dashboard/Request";
 import Settings from "../Pages/Dashboard/Settings/Settings";
 import TearmAndConditions from "../Pages/Dashboard/Settings/TearmAndConditions";
 import ChangePassword from "../Pages/Dashboard/Settings/ChangePassword";
+import ResetPassword from "../Pages/Authentication/ResetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "/otp_validation/:method",
         element: <OTPVerification />,
+      },
+      {
+        path: "/reset_password/",
+        element: <ResetPassword />,
       },
     ],
   },

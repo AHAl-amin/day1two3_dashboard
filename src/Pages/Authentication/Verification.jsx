@@ -35,6 +35,7 @@ export default function ForgotPasswordForm() {
       navigate(`/otp_validation/${method}`);
     } catch (error) {
       console.log(error);
+      toast.error('somthing went wrong.')
     }
   };
 
@@ -140,6 +141,7 @@ export default function ForgotPasswordForm() {
           </button>
         </form>
       </div>
+      <Toaster position="top-right"/>
     </div>
   );
 }
