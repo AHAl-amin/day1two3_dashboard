@@ -8,7 +8,7 @@ import { mutex } from "./Mutex";
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://10.10.13.73:7000/api/v1/",
   prepareHeaders: (headers) => {
-   
+
     const token = localStorage.getItem("access_token");
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
@@ -89,7 +89,7 @@ export const baseApi = createApi({
         body: data,
       }),
     }),
-   varifyOtp: builder.mutation({
+    varifyOtp: builder.mutation({
       query: (payload) => ({
         url: 'accounts/reset-request-activate/',
         method: 'POST',
@@ -110,6 +110,30 @@ export const baseApi = createApi({
         body: resetPassword,
       }),
     }),
+    getProfile: builder.query({
+      query: () => ({
+        url: "accounts/profile/",
+
+
+      }),
+    }),
+    changePassword: builder.mutation({
+      query: ({ old_password, new_password }) => ({
+        url: 'accounts/profile/change-password/',
+        method: 'PUT',
+        body: { old_password, new_password },
+      }),
+    }),
+    profileUpdate: builder.mutation({
+      query: (formData) => ({
+        url: 'accounts/profile/update/',
+        method: 'PUT',
+        body: formData, 
+        headers: {
+          'Content-Type': 'multipart/form-data', 
+        },
+      }),
+    }),
   }),
 });
 
@@ -119,5 +143,9 @@ export const {
   useVarifyOtpMutation,
   useRefreshTokenMutation,
   useResetOtpMutation,
-  useResetPasswordMutation
+  useResetPasswordMutation,
+  useGetProfileQuery,
+
+  useChangePasswordMutation,
+  useProfileUpdateMutation
 } = baseApi;

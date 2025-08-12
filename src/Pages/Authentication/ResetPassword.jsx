@@ -1,3 +1,5 @@
+
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -12,14 +14,24 @@ export default function ResetPassword() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
-  const [resetPassword] =useResetPasswordMutation()
-  
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+
   const password = watch("password");
 
-  const onSubmit = (data) => {
-    console.log("New password:", data.password);
-    toast.success("/Password change successfully")
-    navigate('/');
+  const onSubmit = async (data) => {
+    const resetData = {
+      new_password: data.password, // Match the field name from Postman
+    };
+
+    try {
+      const response = await resetPassword(resetData).unwrap();
+      toast.success(response?.detail || "Password reset successfully");
+      console.log(response)
+      navigate('/');
+    } catch (error) {
+      toast.error(error?.detail || "Failed to reset password");
+      console.log(error)
+    }
   };
 
   return (
@@ -35,7 +47,7 @@ export default function ResetPassword() {
             Create a new password
           </h1>
           <p className="text-[20px] text-[#6E6F70] md:w-[650px] text-center pt-3">
-           WelcoPlease enter a new password for next time Log Inme Back!
+            Please enter a new password for next time Log In
           </p>
         </div>
       </div>
@@ -47,7 +59,6 @@ export default function ResetPassword() {
             type={showPassword ? "text" : "password"}
             {...register("password", {
               required: "Password is required",
-             
             })}
             className="w-full pl-10 pr-10 py-3 bg-blue-50 border-2 rounded-full text-gray-600 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 transition-all duration-200 placeholder-gray-500 border-gray-200"
             placeholder="Enter new password"
@@ -90,25 +101,28 @@ export default function ResetPassword() {
           )}
         </div>
 
-        {/* Remember Me Checkbox */}
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            id="rememberMe"
-            className="mr-2 text-blue-600 focus:ring-blue-500"
-          />
-          <label htmlFor="rememberMe" className="text-gray-700">Remember me</label>
-        </div>
-
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-3 bg-gradient-to-r from-[#1A4773] to-[#0074E5] cursor-pointer text-white rounded-full font-semibold hover:bg-blue-700 transition-colors"
+          disabled={isLoading}
+          className={`w-full py-3 px-4 shadow-sm shadow-gray-800 rounded-full cursor-pointer font-semibold text-white transition duration-200 ease-in-out 
+            ${
+              isLoading
+                ? "bg-gradient-to-r from-[#1A4773] to-[#0074E5] cursor-not-allowed"
+                : "bg-gradient-to-r from-[#1A4773] to-[#0074E5] hover:scale-[1.02] active:scale-95"
+            }`}
         >
-          Done
+          {isLoading ? (
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+              Processing...
+            </div>
+          ) : (
+            "Done"
+          )}
         </button>
       </form>
-      <Toaster position="top-right"/>
+      <Toaster position="top-right" />
     </div>
   );
 }

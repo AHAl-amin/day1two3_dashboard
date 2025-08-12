@@ -8,8 +8,9 @@ import {
   HiOutlineCog,
   HiOutlineBell,
 } from "react-icons/hi";
-import { FaChartLine } from "react-icons/fa";
+import { FaChartLine, FaUserTie } from "react-icons/fa";
 import { FiMessageSquare } from "react-icons/fi";
+import { useGetProfileQuery } from "../redux/features/baseApi";
 
 const navItems = [
   {
@@ -51,10 +52,14 @@ const navItems = [
 ];
 
 export default function DashboardLayout() {
+ const { data: profile, isLoading, error } = useGetProfileQuery();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Settings");
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const profileDropdownRef = useRef(null);
   const location = useLocation();
+
   // const navigate = useNavigate();
 
   // const token =localStorage.getItem("access_token")
@@ -67,6 +72,12 @@ export default function DashboardLayout() {
   // }
 
   // Close dropdown when clicking outside
+
+  useEffect(() => {
+    if (profile) {
+      console.log("Profile data:", profile);
+    }
+  }, [profile]);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -81,6 +92,9 @@ export default function DashboardLayout() {
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
+  };
+  const toggleProfileDropdown = () => {
+    setIsProfileDropdownOpen((prev) => !prev);
   };
 
   return (
@@ -116,7 +130,7 @@ export default function DashboardLayout() {
                       <button
                         type="button"
                         onClick={toggleDropdown}
-                        className={`flex items-center gap-2 px-4 py-2 font-medium transition ${rounded} text-gray-700 hover:bg-gray-100`}
+                        className={`flex items-center gap-2 px-4 py-2 font-medium transition cursor-pointer ${rounded} text-gray-700 hover:bg-gray-100`}
                       >
                         {icon}
                         {selectedOption}
@@ -152,10 +166,9 @@ export default function DashboardLayout() {
                       to={path}
                       end={path === "/dashboard"}
                       className={({ isActive }) =>
-                        `flex items-center gap-2 px-4 py-2 font-medium transition ${rounded} ${
-                          isActive || isDashboardActive
-                            ? active
-                            : "text-gray-700 hover:bg-gray-100"
+                        `flex items-center gap-2 px-4 py-2 font-medium transition ${rounded} ${isActive || isDashboardActive
+                          ? active
+                          : "text-gray-700 hover:bg-gray-100"
                         }`
                       }
                     >
@@ -169,16 +182,54 @@ export default function DashboardLayout() {
           </div>
 
           {/* Right: Notification & Avatar */}
+         
+
           <div className="flex items-center gap-4 w-1/5 justify-end">
             <button className="relative">
               <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
               <HiOutlineBell className="text-2xl text-gray-500" />
             </button>
-            <img
-              src="/user-avatar.png"
-              alt="User"
-              className="w-8 h-8 rounded-full border border-gray-300"
-            />
+            <div className="relative" ref={profileDropdownRef}>
+              <button
+                onClick={toggleProfileDropdown}
+                className="flex items-center gap-2 focus:outline-none cursor-pointer"
+              >
+                {isLoading ? (
+                  <div className="w-8 h-8 rounded-full border border-gray-300 animate-pulse bg-gray-200"></div>
+                ) : error ? (
+                  <FaUserTie className="w-12 h-12 border-2 border-gray-500 p-2 rounded-full text-gray-600" />
+                ) : profile?.image ? (
+                  <img
+                    src={`http://10.10.13.73:7000${profile.image}`}
+                    alt={profile.name || "User"}
+                    className="w-12 h-12 roundedხ0 rounded-full border border-gray-300 object-cover"
+                    onError={(e) => {
+                      e.target.src = null; // Fallback if image fails
+                    }}
+                  />
+                ) : (
+                  <FaUserTie className="w-12 h-12 border-2 border-gray-500 p-2 rounded-full text-gray-600" />
+                )}
+                <span className="text-gray-700 font-medium">
+                  {profile?.name || "User"}
+                </span>
+              </button>
+
+              {isProfileDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 w-22 cursor-pointer bg-white shadow-lg rounded-md border border-gray-200 z-50">
+                 
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem("access_token");
+                      window.location.href = "/"; // Simple logout redirect
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
