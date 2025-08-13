@@ -1,7 +1,7 @@
 
 
 import { useState, useEffect, useRef } from "react";
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   HiOutlineViewGrid,
   HiOutlineFolderOpen,
@@ -10,7 +10,12 @@ import {
 } from "react-icons/hi";
 import { FaChartLine, FaUserTie } from "react-icons/fa";
 import { FiMessageSquare } from "react-icons/fi";
-import { useGetProfileQuery } from "../redux/features/baseApi";
+import { useGetProfileQuery } from "../redux/features/apiSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
+import { logout } from "../redux/features/profileSlice";
+
+// import { useGetProfileQuery } from "../redux/features/baseApi";
 
 const navItems = [
   {
@@ -59,6 +64,9 @@ export default function DashboardLayout() {
   const dropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
   const location = useLocation();
+  	const dispatch = useDispatch();
+    const navigate =useNavigate();
+  
 
   // const navigate = useNavigate();
 
@@ -96,6 +104,15 @@ export default function DashboardLayout() {
   const toggleProfileDropdown = () => {
     setIsProfileDropdownOpen((prev) => !prev);
   };
+    	const handleLogout = () => {
+		dispatch(logout());
+		localStorage.removeItem("access_token");
+		localStorage.removeItem("refresh_token");
+	
+		
+		navigate("/");
+		toast.success("Logout successful!");
+	};
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -219,10 +236,7 @@ export default function DashboardLayout() {
                 <div className="absolute top-full right-0 mt-2 w-22 cursor-pointer bg-white shadow-lg rounded-md border border-gray-200 z-50">
                  
                   <button
-                    onClick={() => {
-                      localStorage.removeItem("access_token");
-                      window.location.href = "/"; // Simple logout redirect
-                    }}
+                    onClick={handleLogout}
                     className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
                   >
                     Logout

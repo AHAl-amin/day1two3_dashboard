@@ -1,145 +1,293 @@
-// import { FaUserTie } from "react-icons/fa"
-// import { Link } from "react-router-dom"
-// import { useGetProfileQuery } from "../../../redux/features/baseApi";
-// import { useEffect } from "react";
+
+
+
+// import { FaUserTie } from "react-icons/fa";
+// import { Link } from "react-router-dom";
+// // import { useGetProfileQuery, useProfileUpdateMutation } from "../../../redux/features/baseApi";
+// import { useEffect, useState } from "react";
+// import { useGetProfileQuery, useProfileUpdateMutation } from "../../../redux/features/apiSlice";
+// import { toast, Toaster } from "sonner";
 
 // function Settings() {
+//   const { data: profile, isLoading, error } = useGetProfileQuery();
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [profileUpdate, { isLoading: isUpdating }] = useProfileUpdateMutation();
+//   const [formData, setFormData] = useState({
+//     name: "",
+//     email: "",
+//     phone: "",
+//     image: null,
+//   });
 
-//     const { data: profile, isLoading, error } = useGetProfileQuery();
-
-//      useEffect(() => {
-//     if (profile) {
-//       console.log("Profile data:", profile);
-//     }
-//   }, [profile]);
-   
-// console.log(profile)
 
 
-//     return (
-//         <div className="min-h-screen  p-4 sm:p-6 lg:p-8">
-//             <div className="max-w-5xl mx-auto rounded-lg  shadow-md p-6">
-//                 {/* Header Section */}
-//                 <div className="flex flex-col sm:flex-row items-center justify-between mb-8">
-//                     <div className="flex items-center mb-4 gap-4 sm:mb-0">
-//                         <div>
+//   const handleEditToggle = () => {
+//     setIsEditing(!isEditing);
+//   };
 
-//                             {isLoading ? (
-//                   <div className="w-8 h-8 rounded-full border border-gray-300 animate-pulse bg-gray-200"></div>
-//                 ) : error ? (
-//                   <FaUserTie className="w-12 h-12 border-2 border-gray-500 p-2 rounded-full text-gray-600" />
-//                 ) : profile?.image ? (
-//                   <img
-//                     src={`http://10.10.13.73:7000${profile.image}`}
-//                     alt={profile.name || "User"}
-//                     className="w-12 h-12 roundedხ0 rounded-full border border-gray-300 object-cover"
-//                     onError={(e) => {
-//                       e.target.src = null; // Fallback if image fails
-//                     }}
-//                   />
-//                 ) : (
-//                   <FaUserTie className="w-12 h-12 border-2 border-gray-500 p-2 rounded-full text-gray-600" />
-//                 )}
+// useEffect(() => {
+//   if (profile && !isLoading) {
+//     const newFormData = {
+//       name: profile.name || "",
+//       email: profile.email || "",
+//       phone: profile.phone || "",
+//       image: profile.image ? `http://10.10.13.73:7000${profile.image}` : null,
+//     };
+//     setFormData(newFormData);
+//   }
+// }, [profile, isLoading]);
 
-//                         </div>
 
-//                         <div>
-//                             <h1 className="text-2xl font-bold text-gray-800">Hello {profile?.name}!</h1>
-//                             <p className="text-gray-600">{profile?.email}</p>
-//                         </div>
-//                     </div>
-//                     <button className="px-6 py-2 rounded-full bg-[#1E90FF1A]0 text-white font-medium bg-gradient-to-b from-[#1E90FF] to-[#305C87] cursor-pointer transition-colors duration-200 shadow-md">
-//                         Edit Details
-//                     </button>
-//                 </div>
 
-//                 {/* Profile Details Section */}
-//                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-//                     <div>
-//                         <label htmlFor="fullName" className="block text-gray-700 text-xl font-medium mb-2">
-//                             Full Name
-//                         </label>
-//                         <div id="fullName" className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800">
-//                             {profile?.name}
-//                         </div>
-//                     </div>
-//                     <div>
-//                         <label htmlFor="email" className="block text-gray-700 text-xl font-medium mb-2">
-//                             Email
-//                         </label>
-//                         <div id="email" className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800">
-//                             {profile?.email}
-//                         </div>
-//                     </div>
-//                     <div>
-//                         <label htmlFor="phoneNumber" className="block text-gray-700 text-xl font-medium mb-2">
-//                             Phone Number
-//                         </label>
-//                         <div id="phoneNumber" className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800">
-//                             {profile.phone}
-//                         </div>
-//                     </div>
-//                 </div>
 
-//                 {/* Change Password Link */}
-//                 <div>
-//                     <Link to='/dashboard/change_password' className="text-[#2563EB] text-xl  font-medium">
-//                         Change Password
-//                     </Link>
-//                 </div>
+
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   const formDataToSend = new FormData(e.target);
+
+ 
+
+//   try {
+//     await profileUpdate(formDataToSend).unwrap();
+//     toast.success("Profile updated successfully!");
+//     setIsEditing(false);
+//   } catch (error) {
+//     console.error("Failed to update profile:", error);
+//     toast.error("Failed to update profile. Please try again.");
+//   }
+// };
+
+//   return (
+//     <div className="min-h-screen p-4 sm:p-6 lg:p-8">
+//       <div className="max-w-5xl mx-auto rounded-lg shadow-md p-6">
+//         {/* Header Section */}
+//         <div className="flex flex-col sm:flex-row items-center justify-between mb-8">
+//           <div className="flex items-center mb-4 gap-4 sm:mb-0">
+//             <div>
+//               {isLoading ? (
+//                 <div className="w-8 h-8 rounded-full border border-gray-300 animate-pulse bg-gray-200"></div>
+//               ) : error ? (
+//                 <FaUserTie className="w-12 h-12 border-2 border-gray-500 p-2 rounded-full text-gray-600" />
+//               ) : profile?.image ? (
+//                 <img
+//                   src={`http://10.10.13.73:7000${profile.image}`}
+//                   alt={profile.name || "User"}
+//                   className="w-12 h-12 rounded-full border border-gray-300 object-cover"
+//                   onError={(e) => {
+//                     e.target.src = null; // Fallback if image fails
+//                   }}
+//                 />
+//               ) : (
+//                 <FaUserTie className="w-12 h-12 border-2 border-gray-500 p-2 rounded-full text-gray-600" />
+//               )}
 //             </div>
+           
+//             <div>
+//               <h1 className="text-2xl font-bold text-gray-800">Hello {profile?.name}!</h1>
+//               <p className="text-gray-600">{profile?.email}</p>
+//             </div>
+//           </div>
+//           <button
+//             onClick={handleEditToggle}
+//             type='submit'
+//             className="px-6 py-2 rounded-full bg-[#1E90FF1A] text-white font-medium bg-gradient-to-b from-[#1E90FF] to-[#305C87] cursor-pointer transition-colors duration-200 shadow-md"
+//           >
+//             {isEditing ? "Update Profile" : "Edit Details"}
+//           </button>
 //         </div>
-//     )
+
+//         {/* Profile Details Section */}
+//         <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+//           <div>
+//             <label htmlFor="fullName" className="block text-gray-700 text-xl font-medium mb-2">
+//               Full Name
+//             </label>
+//             {isEditing ? (
+//               <input
+//                 type="text"
+//                 id="fullName"
+//                 name="name"
+//                 defaultValue={profile?.name || ""}
+//                 className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800"
+//                 required
+//               />
+//             ) : (
+//               <div id="fullName" className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800">
+//                 {profile?.name}
+//               </div>
+//             )}
+//           </div>
+//           <div>
+//             <label htmlFor="email" className="block text-gray-700 text-xl font-medium mb-2">
+//               Email
+//             </label>
+//             {isEditing ? (
+//               <input
+//                 type="email"
+//                 id="email"
+//                 name="email"
+//                 disabled
+//                 defaultValue={profile?.email || ""}
+//                 className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800"
+//                 required
+//               />
+//             ) : (
+//               <div id="email" className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800">
+//                 {profile?.email}
+//               </div>
+//             )}
+//           </div>
+//           <div>
+//             <label htmlFor="phoneNumber" className="block text-gray-700 text-xl font-medium mb-2">
+//               Phone Number
+//             </label>
+//             {isEditing ? (
+//               <input
+//                 type="text"
+//                 id="phoneNumber"
+//                 name="phone"
+//                 defaultValue={profile?.phone || ""}
+//                 className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800"
+//                 required
+//               />
+//             ) : (
+//               <div id="phoneNumber" className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800">
+//                 {profile?.phone}
+//               </div>
+//             )}
+//           </div>
+//           {isEditing && (
+//             <div>
+//               <label htmlFor="image" className="block text-gray-700 text-xl font-medium mb-2">
+//                 Profile Image
+//               </label>
+//               <input
+//                 type="file"
+//                 id="image"
+//                 name="image"
+//                 className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800"
+//                 required
+//               />
+//             </div>
+//           )}
+//           {isEditing && (
+//             <button
+//               type="submit"
+//               disabled={isUpdating}
+//               className="px-6 py-2 rounded-full bg-[#1E90FF1A] text-white font-medium bg-gradient-to-b from-[#1E90FF] to-[#305C87] cursor-pointer transition-colors duration-200 shadow-md"
+//             >
+//               {isUpdating ? "Updating..." : "Save Changes"}
+//             </button>
+//           )}
+          
+//         </form>
+
+//         {/* Change Password Link */}
+//         <div>
+//           <Link to="/dashboard/change_password" className="text-[#2563EB] text-xl font-medium">
+//             Change Password
+//           </Link>
+//         </div>
+//       </div>
+//       <Toaster position="top-right"/>
+//     </div>
+//   );
 // }
 
-// export default Settings
-
+// export default Settings;
 
 
 import { FaUserTie } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useGetProfileQuery, useProfileUpdateMutation } from "../../../redux/features/baseApi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useGetProfileQuery, useProfileUpdateMutation } from "../../../redux/features/apiSlice";
+import { toast, Toaster } from "sonner";
 
 function Settings() {
   const { data: profile, isLoading, error } = useGetProfileQuery();
   const [isEditing, setIsEditing] = useState(false);
-  const [profileUpdate, { isLoading: isUpdating, isError }] = useProfileUpdateMutation();
+  const [profileUpdate, { isLoading: isUpdating }] = useProfileUpdateMutation();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    image: null,
+  });
+  const [imagePreview, setImagePreview] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
-    if (profile) {
-      console.log("Profile data:", profile);
+    if (profile && !isLoading) {
+      const newFormData = {
+        name: profile.name || "",
+        email: profile.email || "",
+        phone: profile.phone || "",
+        image: null,
+      };
+      setFormData(newFormData);
+      setImagePreview(profile.image ? `http://10.10.13.73:7000${profile.image}` : null);
     }
-  }, [profile]);
+  }, [profile, isLoading]);
 
-  console.log(profile);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prev) => ({
+        ...prev,
+        image: file,
+      }));
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleImageClick = () => {
+    if (isEditing) {
+      fileInputRef.current.click();
+    }
+  };
 
   const handleEditToggle = () => {
-    setIsEditing(!isEditing);
+    setIsEditing(!isEditing); // Toggle edit mode
+    if (isEditing) {
+      // Reset form data to original profile data when canceling edit
+      setFormData({
+        name: profile?.name || "",
+        email: profile?.email || "",
+        phone: profile?.phone || "",
+        image: null,
+      });
+      setImagePreview(profile?.image ? `http://10.10.13.73:7000${profile.image}` : null);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-
-    // Ensure all required fields are present
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const phone = formData.get("phone");
-    const image = formData.get("image");
-
-    if (!name || !email || !phone || !image) {
-    //   alert("Please fill in all fields, including the image.");
-      return;
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("phone", formData.phone);
+    if (formData.image) {
+      formDataToSend.append("image", formData.image);
     }
 
     try {
-      await profileUpdate(formData).unwrap();
-      alert("Profile updated successfully!");
-      setIsEditing(false); // Toggle back to view mode after successful update
+      await profileUpdate(formDataToSend).unwrap();
+      toast.success("Profile updated successfully!");
+      setIsEditing(false);
+      if (imagePreview && formData.image) {
+        URL.revokeObjectURL(imagePreview);
+      }
     } catch (error) {
       console.error("Failed to update profile:", error);
-      alert("Failed to update profile. Please try again.");
+      toast.error("Failed to update profile. Please try again.");
     }
   };
 
@@ -154,18 +302,31 @@ function Settings() {
                 <div className="w-8 h-8 rounded-full border border-gray-300 animate-pulse bg-gray-200"></div>
               ) : error ? (
                 <FaUserTie className="w-12 h-12 border-2 border-gray-500 p-2 rounded-full text-gray-600" />
-              ) : profile?.image ? (
+              ) : (
                 <img
-                  src={`http://10.10.13.73:7000${profile.image}`}
-                  alt={profile.name || "User"}
-                  className="w-12 h-12 rounded-full border border-gray-300 object-cover"
+                  src={imagePreview || (profile?.image ? `http://10.10.13.73:7000${profile.image}` : null)}
+                  alt={profile?.name || "User"}
+                  className={`w-12 h-12 rounded-full border border-gray-300 object-cover ${isEditing ? "cursor-pointer" : ""}`}
+                  onClick={handleImageClick}
                   onError={(e) => {
-                    e.target.src = null; // Fallback if image fails
+                    e.target.src = null;
+                    e.target.style.display = "none";
+                    e.target.nextSibling.style.display = "block";
                   }}
                 />
-              ) : (
+              )}
+              {!imagePreview && !profile?.image && !isLoading && !error && (
                 <FaUserTie className="w-12 h-12 border-2 border-gray-500 p-2 rounded-full text-gray-600" />
               )}
+              <input
+                type="file"
+                id="image"
+                name="image"
+                ref={fileInputRef}
+                className="hidden"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-800">Hello {profile?.name}!</h1>
@@ -174,14 +335,16 @@ function Settings() {
           </div>
           <button
             onClick={handleEditToggle}
+            type="button"
+            disabled={isUpdating}
             className="px-6 py-2 rounded-full bg-[#1E90FF1A] text-white font-medium bg-gradient-to-b from-[#1E90FF] to-[#305C87] cursor-pointer transition-colors duration-200 shadow-md"
           >
-            {isEditing ? "Update Profile" : "Edit Details"}
+            {isEditing ? "Cancel" : "Edit Details"}
           </button>
         </div>
 
         {/* Profile Details Section */}
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        <form id="profileForm" onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
           <div>
             <label htmlFor="fullName" className="block text-gray-700 text-xl font-medium mb-2">
               Full Name
@@ -191,7 +354,8 @@ function Settings() {
                 type="text"
                 id="fullName"
                 name="name"
-                defaultValue={profile?.name || ""}
+                value={formData.name}
+                onChange={handleInputChange}
                 className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800"
                 required
               />
@@ -210,7 +374,9 @@ function Settings() {
                 type="email"
                 id="email"
                 name="email"
-                defaultValue={profile?.email || ""}
+                value={formData.email}
+                onChange={handleInputChange}
+                disabled
                 className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800"
                 required
               />
@@ -229,7 +395,8 @@ function Settings() {
                 type="text"
                 id="phoneNumber"
                 name="phone"
-                defaultValue={profile?.phone || ""}
+                value={formData.phone}
+                onChange={handleInputChange}
                 className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800"
                 required
               />
@@ -240,29 +407,14 @@ function Settings() {
             )}
           </div>
           {isEditing && (
-            <div>
-              <label htmlFor="image" className="block text-gray-700 text-xl font-medium mb-2">
-                Profile Image
-              </label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                className="w-full px-3 py-2 bg-[#1E90FF1A] rounded-md text-gray-800"
-                required
-              />
-            </div>
-          )}
-          {isEditing && (
             <button
               type="submit"
               disabled={isUpdating}
               className="px-6 py-2 rounded-full bg-[#1E90FF1A] text-white font-medium bg-gradient-to-b from-[#1E90FF] to-[#305C87] cursor-pointer transition-colors duration-200 shadow-md"
             >
-              {isUpdating ? "Updating..." : "Save Changes"}
+              {isUpdating ? "Updating..." : "Update Profile"}
             </button>
           )}
-          {isError && <p className="text-red-500">Failed to update profile. Please try again.</p>}
         </form>
 
         {/* Change Password Link */}
@@ -272,10 +424,9 @@ function Settings() {
           </Link>
         </div>
       </div>
+      <Toaster position="top-right" />
     </div>
   );
 }
 
 export default Settings;
-
-

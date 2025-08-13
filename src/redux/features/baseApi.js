@@ -110,13 +110,13 @@ export const baseApi = createApi({
         body: resetPassword,
       }),
     }),
-    getProfile: builder.query({
-      query: () => ({
-        url: "accounts/profile/",
+    // getProfile: builder.query({
+    //   query: () => ({
+    //     url: "accounts/profile/",
 
 
-      }),
-    }),
+    //   }),
+    // }),
     changePassword: builder.mutation({
       query: ({ old_password, new_password }) => ({
         url: 'accounts/profile/change-password/',
@@ -124,16 +124,16 @@ export const baseApi = createApi({
         body: { old_password, new_password },
       }),
     }),
-    profileUpdate: builder.mutation({
-      query: (formData) => ({
-        url: 'accounts/profile/update/',
-        method: 'PUT',
-        body: formData, 
-        headers: {
-          'Content-Type': 'multipart/form-data', 
-        },
-      }),
-    }),
+    // profileUpdate: builder.mutation({
+    //   query: (formData) => ({
+    //     url: 'accounts/profile/update/',
+    //     method: 'PUT',
+    //     body: formData, 
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data', 
+    //     },
+    //   }),
+    // }),
   }),
 });
 
@@ -144,8 +144,8 @@ export const {
   useRefreshTokenMutation,
   useResetOtpMutation,
   useResetPasswordMutation,
-  useGetProfileQuery,
+ 
 
   useChangePasswordMutation,
-  useProfileUpdateMutation
+ 
 } = baseApi;

@@ -34,7 +34,7 @@ export default function LoginForm() {
 
       navigate("/dashboard");
     } catch (error) {
-      toast.error(error?.data?.detail || "Unable to login! Try again");
+      toast.error(error?.detail || "Unable to login! Try again");
     }
   };
 

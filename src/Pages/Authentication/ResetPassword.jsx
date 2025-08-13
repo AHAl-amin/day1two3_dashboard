@@ -63,11 +63,11 @@ export default function ResetPassword() {
             className="w-full pl-10 pr-10 py-3 bg-blue-50 border-2 rounded-full text-gray-600 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 transition-all duration-200 placeholder-gray-500 border-gray-200"
             placeholder="Enter new password"
           />
-          <MdLockOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <MdLockOutline className="absolute left-3 top-6 -translate-y-1/2 text-gray-400" />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
+            className="absolute right-3 top-6 -translate-y-1/2 text-gray-500 cursor-pointer"
           >
             {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </button>
@@ -88,11 +88,11 @@ export default function ResetPassword() {
             className="w-full pl-10 pr-10 py-3 bg-blue-50 border-2 rounded-full text-gray-600 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 transition-all duration-200 placeholder-gray-500 border-gray-200"
             placeholder="Confirm new password"
           />
-          <MdLockOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <MdLockOutline className="absolute left-3 top-6 -translate-y-1/2 text-gray-400" />
           <button
             type="button"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
+            className="absolute right-3 top-6 -translate-y-1/2 text-gray-500 cursor-pointer"
           >
             {showConfirmPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </button>
