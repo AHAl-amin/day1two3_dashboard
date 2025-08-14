@@ -56,7 +56,7 @@ function ChangePassword() {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 flex items-center justify-center">
-      <div className="max-w-5xl md:w-130 border mx-auto rounded-lg p-6">
+      <div className="max-w-5xl md:w-130  mx-auto rounded-lg p-6">
         <div className="flex gap-4 w-full items-center mb-8">
           <div>
             <FaUserTie className="size-24 border-2 border-gray-500 p-2 rounded-full text-gray-600" />

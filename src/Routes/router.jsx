@@ -15,6 +15,8 @@ import Settings from "../Pages/Dashboard/Settings/Settings";
 import TearmAndConditions from "../Pages/Dashboard/Settings/TearmAndConditions";
 import ChangePassword from "../Pages/Dashboard/Settings/ChangePassword";
 import ResetPassword from "../Pages/Authentication/ResetPassword";
+import Unauthorized from "../Pages/Unauthorized/Unauthorized";
+import PrivetRoute from "../Pages/PrivetRoute/PrivetRoute";
 
 export const router = createBrowserRouter([
   {
@@ -41,48 +43,56 @@ export const router = createBrowserRouter([
         path: "/reset_password/",
         element: <ResetPassword />,
       },
+      {
+        path: "/unauthorized/",
+        element: <Unauthorized />,
+      },
     ],
   },
 
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
-    children: [
-      {
-        index: true,
-        element: <DashboardHome />,
-      },
-      {
-        path: "product_details/:id",
-        element: <ProductDetails />,
-      },
-      {
-        path: "projects",
-        element: <Projects />,
-      },
-      {
-        path: "reports",
-        element: <Reports />,
-      },
-      {
-        path: "request",
-        element: <Request />,
-      },
-      {
-        path: "settings",
-        element: <Settings />,
-      },
-    
-      {
-        path: "terms",
-        element: <TearmAndConditions />,
-      },
-    
-      {
-        path: "change_password",
-        element: <ChangePassword />,
-      },
-    
-    ],
+
+    element: <PrivetRoute />,
+    children: [{
+      element: <DashboardLayout />,
+      children: [
+        {
+          index: true,
+          element: <DashboardHome />,
+        },
+        {
+          path: "product_details/:id",
+          element: <ProductDetails />,
+        },
+        {
+          path: "projects",
+          element: <Projects />,
+        },
+        {
+          path: "reports",
+          element: <Reports />,
+        },
+        {
+          path: "request",
+          element: <Request />,
+        },
+        {
+          path: "settings",
+          element: <Settings />,
+        },
+
+        {
+          path: "terms",
+          element: <TearmAndConditions />,
+        },
+
+        {
+          path: "change_password",
+          element: <ChangePassword />,
+        },
+
+      ],
+    }]
   },
 ]);
